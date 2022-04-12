@@ -22,4 +22,20 @@ class LoginHandler {
         return $loggedUser;
     }
 
+    public static function verifyLogin($email, $password) {
+        $user = User::select()->where('email', $email)->one();
+        if(!$user) {
+            return false;
+        }
+        if(!password_verify($password, $user['password'])) {
+            return false;
+        }
+        $token = md5(time().rand(0,9999).time());
+        User::update()
+            ->set('token', $token)
+            ->where('id', $user->id)
+        ->execute();
+        return $token;
+    }
+
 }
