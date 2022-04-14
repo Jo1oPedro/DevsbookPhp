@@ -33,9 +33,25 @@ class LoginHandler {
         $token = md5(time().rand(0,9999).time());
         User::update()
             ->set('token', $token)
-            ->where('id', $user->id)
+            ->where('id', $user['id'])
         ->execute();
         return $token;
     }
 
+    public function emailExists($email) {
+        $user = User::select()->where('email', $email)->one();
+        return $user ? true : false;
+    }
+
+    public function addUser($name, $email, $password, $birthdate) {
+        $token = md5(time().rand(0,9999).time());
+        User::insert([
+            'name' => $name,
+            'email' => $email,
+            'password' => password_hash($password, PASSWORD_DEFAULT),
+            'birthdate' => $birthdate,
+            'token' => $token,
+        ])->execute();
+        return $token;
+    }
 }
