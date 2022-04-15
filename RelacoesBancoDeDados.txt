@@ -21,7 +21,7 @@
 -- type (text, photo)
 -- created_at
 -- body  
--- like_count
+-- id_user
 
 - PostComments
 -- id
