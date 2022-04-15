@@ -11,6 +11,7 @@ $router->post('/login', 'LoginController@signInAction');
 $router->get('/cadastro','LoginController@signUp');
 $router->post('/cadastro','LoginController@signUpAction');
 
+$router->post('/post/new', 'PostController@new');
 //$router->get('/pesquisa');
 //$router->get('/perfil');
 //$router->get('/sair');
