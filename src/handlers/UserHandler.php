@@ -74,17 +74,17 @@ class UserHandler {
                 $userData = User::select()->where('id', $follower['user_from'])->one();
                 $newUser = new User();
                 $newUser->id = $userData['id'];
-                $newUser->nome = $userData['nome'];
+                $newUser->nome = $userData['name'];
                 $newUser->avatar = $userData['avatar'];
                 $user->followers[] =  $newUser;
             } 
 
             $followings = User_relation::select()->where('user_from', $user->id)->get();
             foreach($followings as $following) {
-                $userData = User::select()->where('id', $follower['user_to'])->one();
+                $userData = User::select()->where('id', $following['user_to'])->one();
                 $newUser = new User();
                 $newUser->id = $userData['id'];
-                $newUser->nome = $userData['nome'];
+                $newUser->nome = $userData['name'];
                 $newUser->avatar = $userData['avatar'];
                 $user->following[] =  $newUser;
             }
@@ -105,5 +105,13 @@ class UserHandler {
             'token' => $token,
         ])->execute();
         return $token;
+    }
+
+    public function isFollowing($loggedId, $userId) {
+        $following = User_relation::select()
+            ->where('user_from', $loggedId)
+            ->where('user_to', $userId)
+        ->one();
+        return ($following) ? true : false;
     }
 }

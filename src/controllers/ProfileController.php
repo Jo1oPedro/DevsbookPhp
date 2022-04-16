@@ -31,10 +31,15 @@ class ProfileController extends Controller {
         $dateTo = new \DateTime('today');
         $user->ageYears = $dateFrom->diff($dateTo)->y;
         $feed = PostHandler::getUserFeed($id, $page, $this->loggedUser->id);
+        $isFollowing = false;
+        if($user->id != $this->loggedUser->id) {
+            $isFollowing = UserHandler::isFollowing($this->loggedUser->id, $user->id);
+        }
         $this->render('profile', [
             'loggedUser' => $this->loggedUser,
             'user' => $user,
             'feed' => $feed,
+            'isFollowing' => $isFollowing,
         ]);
     }
 

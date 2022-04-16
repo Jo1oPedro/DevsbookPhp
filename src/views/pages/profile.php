@@ -20,7 +20,11 @@
                         <div class="profile-info-data row">
                             <?php if($user->id != $loggedUser->id): ?>
                                 <div class="profile-info-item m-width-20">
-                                    <a href="" class="button">Seguir</a>
+                                    <?php if($isFollowing): ?>
+                                        <a href="" class="button">Deixar de seguir</a>
+                                    <?php else: ?>
+                                        <a href="" class="button">Seguir</a>
+                                    <?php endif; ?>
                                 </div>
                             <?php endif; ?>
                             <div class="profile-info-item m-width-20">
@@ -84,9 +88,9 @@
                         <?php for($cont=0;$cont<9;$cont++): ?>
                             <?php if(isset($user->following[$cont])): ?>
                                 <div class="friend-icon">
-                                    <a href="<?=$base;?>/perfil/<?=$follower->id;?>">
+                                    <a href="<?=$base;?>/perfil/<?=$user->following[$cont]->id;?>">
                                         <div class="friend-icon-avatar">
-                                            <img src="<?=$base;?>/media/avatars/<?=$follower->avatar;?>" />
+                                            <img src="<?=$base;?>/media/avatars/<?=$user->following[$cont]->avatar;?>" />
                                         </div>
                                         <div class="friend-icon-name">
                                             <?=$follower->nome;?>
