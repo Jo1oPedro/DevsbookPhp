@@ -60,4 +60,9 @@ class LoginController extends Controller {
         $this->redirect('/');
     }
 
+    public function logout() {
+        $_SESSION['token'] = '';
+        $this->redirect('/login');   
+    }
+
 }
