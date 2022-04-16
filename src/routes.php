@@ -12,7 +12,10 @@ $router->get('/cadastro','LoginController@signUp');
 $router->post('/cadastro','LoginController@signUpAction');
 
 $router->post('/post/new', 'PostController@new');
-//$router->get('/pesquisa');
+
+$router->get('/perfil/{id}', 'ProfileController@index');
+$router->get('/perfil', 'ProfileController@index');
+//$router->get('/pesquisar');
 //$router->get('/perfil');
 //$router->get('/sair');
 //$router->get('/amigos');
