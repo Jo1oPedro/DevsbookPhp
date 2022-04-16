@@ -17,7 +17,9 @@ class ProfileController extends Controller {
     }
 
     public function index($attributes = []) {
+        $page = intval(filter_input(INPUT_GET, 'page'));
         $user = UserHandler::getUser($this->loggedUser->id, true);
+        $id = $this->loggedUser->id;
         if(!empty($attributes['id'])) {
             $id = $attributes['id'];
             $user = UserHandler::getUser($id);
@@ -28,9 +30,11 @@ class ProfileController extends Controller {
         $dateFrom = new \DateTime($user->birthdate);
         $dateTo = new \DateTime('today');
         $user->ageYears = $dateFrom->diff($dateTo)->y;
+        $feed = PostHandler::getUserFeed($id, $page, $this->loggedUser->id);
         $this->render('profile', [
             'loggedUser' => $this->loggedUser,
             'user' => $user,
+            'feed' => $feed,
         ]);
     }
 

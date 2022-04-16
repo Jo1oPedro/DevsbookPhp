@@ -40,6 +40,15 @@ class PostHandler {
         ->count();
         $pageCount = ceil($total / $perPage);
 
+        $posts = self::_postListToObject($postList, $idUser);
+        return [
+            'posts' => $posts,
+            'pageCount' => $pageCount,
+            'currentPage' => $page,
+        ];
+    }
+
+    public static function _postListToObject($postList, $loggedUserId) {
         $posts = [];
         foreach($postList as $postItem) { // transforma cada elemento do array em um objeto
             $newPost = new Post();
@@ -49,7 +58,7 @@ class PostHandler {
             $newPost->body = $postItem['body'];     
             $newPost->created_at = $postItem['created_at'];
             $newPost->mine = false;
-            if($postItem['id_user'] == $idUser) {
+            if($postItem['id_user'] == $loggedUserId) {
                 $newPost->mine = true;
             }
 
@@ -65,6 +74,23 @@ class PostHandler {
 
             $posts[] = $newPost;
         }
+        return $posts;
+    }
+
+    public static function getUserFeed($idUser, $page, $loggedUserId) {
+        $perPage = 2;
+        $postList = Post::select()
+            ->where('id_user', $idUser)
+            ->orderBy('created_at', 'desc')
+            ->page($page, 2)
+        ->get(); // retorna um array de arrays
+
+        $total = Post::select()
+            ->where('id_user', $idUser)
+        ->count();
+        $pageCount = ceil($total / $perPage);
+
+        $posts = self::_postListToObject($postList, $loggedUserId);
         return [
             'posts' => $posts,
             'pageCount' => $pageCount,
