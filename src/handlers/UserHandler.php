@@ -3,6 +3,7 @@ namespace src\handlers;
 
 use \src\models\User;
 use \src\models\User_relation;
+use \src\handlers\PostHandler;
 
 class UserHandler {
     
@@ -67,6 +68,7 @@ class UserHandler {
             $user->followers = [];
             $user->following = [];
             $user->photos = [];
+
             $followers = User_relation::select()->where('user_to', $user->id)->get();
             foreach($followers as $follower) {
                 $userData = User::select()->where('id', $follower['user_from'])->one();
@@ -76,6 +78,7 @@ class UserHandler {
                 $newUser->avatar = $userData['avatar'];
                 $user->followers[] =  $newUser;
             } 
+
             $followings = User_relation::select()->where('user_from', $user->id)->get();
             foreach($followings as $following) {
                 $userData = User::select()->where('id', $follower['user_to'])->one();
@@ -84,7 +87,9 @@ class UserHandler {
                 $newUser->nome = $userData['nome'];
                 $newUser->avatar = $userData['avatar'];
                 $user->following[] =  $newUser;
-            } 
+            }
+
+            $user->photos = PostHandler::getPhotosFrom($id);
         //}
 
         return $user;
