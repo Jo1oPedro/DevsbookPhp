@@ -17,7 +17,7 @@ class ProfileController extends Controller {
     }
 
     public function index($attributes = []) {
-        $user = UserHandler::getUser($this->loggedUser->id);
+        $user = UserHandler::getUser($this->loggedUser->id, true);
         if(!empty($attributes['id'])) {
             $id = $attributes['id'];
             $user = UserHandler::getUser($id);
@@ -26,6 +26,7 @@ class ProfileController extends Controller {
             }
         }
         $this->render('profile', [
+            'loggedUser' => $this->loggedUser,
             'user' => $user,
         ]);
     }

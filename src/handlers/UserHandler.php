@@ -2,6 +2,7 @@
 namespace src\handlers;
 
 use \src\models\User;
+use \src\models\User_relation;
 
 class UserHandler {
     
@@ -48,7 +49,7 @@ class UserHandler {
         return $user ? true : false;
     }
 
-    public static function getUser($id) {
+    public static function getUser($id, $full = false) {
         $data = User::select()->where('id', $id)->one();
         if(!$data) {
             return false;
@@ -61,6 +62,30 @@ class UserHandler {
         $user->work = $data['work'];
         $user->avatar = $data['avatar'];
         $user->cover = $data['cover'];
+
+        //if($full) {
+            $user->followers = [];
+            $user->following = [];
+            $user->photos = [];
+            $followers = User_relation::select()->where('user_to', $user->id)->get();
+            foreach($followers as $follower) {
+                $userData = User::select()->where('id', $follower['user_from'])->one();
+                $newUser = new User();
+                $newUser->id = $userData['id'];
+                $newUser->nome = $userData['nome'];
+                $newUser->avatar = $userData['avatar'];
+                $user->followers[] =  $newUser;
+            } 
+            $followings = User_relation::select()->where('user_from', $user->id)->get();
+            foreach($followings as $following) {
+                $userData = User::select()->where('id', $follower['user_to'])->one();
+                $newUser = new User();
+                $newUser->id = $userData['id'];
+                $newUser->nome = $userData['nome'];
+                $newUser->avatar = $userData['avatar'];
+                $user->following[] =  $newUser;
+            } 
+        //}
 
         return $user;
     }
