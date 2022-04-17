@@ -24,7 +24,13 @@ class ConfigController extends Controller {
     }
 
     public function edit() {
-        
+        $name = filter_input(INPUT_POST, 'name');
+        $name = filter_input(INPUT_POST, 'name');
+        $name = filter_input(INPUT_POST, 'name');
+        $name = filter_input(INPUT_POST, 'name');
+        $name = filter_input(INPUT_POST, 'name');
+        $name = filter_input(INPUT_POST, 'name');
+        $name = filter_input(INPUT_POST, 'name');
     }
 
 }
