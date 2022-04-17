@@ -55,7 +55,7 @@ class ProfileController extends Controller {
         $this->redirect('/perfil/'.$attributes['id']);
     }
 
-    public function amigos($attributes = []) {
+    public function friends($attributes = []) {
         $user = UserHandler::getUser($this->loggedUser->id, true);
         $id = $this->loggedUser->id;
         if(!empty($attributes['id'])) {
@@ -75,7 +75,6 @@ class ProfileController extends Controller {
         $this->render('profile_friends', [
             'loggedUser' => $this->loggedUser,
             'user' => $user,
-            'feed' => $feed,
             'isFollowing' => $isFollowing,
         ]);
     }

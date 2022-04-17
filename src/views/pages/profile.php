@@ -89,7 +89,7 @@
                                             <img src="<?=$base;?>/media/avatars/<?=$user->following[$cont]->avatar;?>" />
                                         </div>
                                         <div class="friend-icon-name">
-                                            <?=$follower->nome;?>
+                                            <?=$user->following[$cont]->nome;?>
                                         </div>
                                     </a>
                                 </div>
