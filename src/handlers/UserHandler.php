@@ -40,7 +40,7 @@ class UserHandler {
         return $token;
     }
 
-    public function idExists($id) {
+    public static function idExists($id) {
         $user = User::select()->where('id', $id)->one();
         return $user ? true : false;
     }
@@ -107,11 +107,25 @@ class UserHandler {
         return $token;
     }
 
-    public function isFollowing($loggedId, $userId) {
+    public static function isFollowing($loggedId, $userId) {
         $following = User_relation::select()
             ->where('user_from', $loggedId)
             ->where('user_to', $userId)
         ->one();
         return ($following) ? true : false;
+    }
+
+    public static function follow($loggedId, $userId) {
+        User_relation::insert([
+            'user_from' => $loggedId,
+            'user_to' => $userId,
+        ])->execute();
+    }
+
+    public static function unfollow($loggedId, $userId) {
+        $data = User_relation::delete()
+            ->where('user_from', $loggedId)
+            ->where('user_to', $userId)
+        ->execute();
     }
 }

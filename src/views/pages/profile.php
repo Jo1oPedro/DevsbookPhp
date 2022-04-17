@@ -20,11 +20,7 @@
                         <div class="profile-info-data row">
                             <?php if($user->id != $loggedUser->id): ?>
                                 <div class="profile-info-item m-width-20">
-                                    <?php if($isFollowing): ?>
-                                        <a href="" class="button">Deixar de seguir</a>
-                                    <?php else: ?>
-                                        <a href="" class="button">Seguir</a>
-                                    <?php endif; ?>
+                                    <a href="<?=$base;?>/perfil/<?=$user->id;?>/follow" class="button"><?=($isFollowing)? 'Deixar de seguir':'seguir';?> </a>
                                 </div>
                             <?php endif; ?>
                             <div class="profile-info-item m-width-20">
