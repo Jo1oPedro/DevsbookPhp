@@ -10,9 +10,6 @@
                 <label>Nova Capa</label>
                 <input type="file" name="cover" /><br/><hr/>
                 <form class="" method="POST" action="<?=$base;?>/config">
-                    <?php if(!empty($flash)): ?>
-                        <div class="flash"><?php echo $flash; ?></div>
-                    <?php endif; ?>
                     <br/>
                     <input placeholder="<?=$loggedUser->id?>" type="hidden" name="id" />
                     <br/>
@@ -21,6 +18,9 @@
                     <label>Data de Nascimento:</label><br/>
                     <input class="input" id="birthdate" placeholder="<?=date('d/m/Y', strtotime($loggedUser->birthdate));?>" type="text" onfocus="(this.type = 'date')" name="birthdate" /><br/><br/>
                     <label>E-mail:</label><br/>
+                    <?php if(isset($flash['email']) > 0): ?>
+                            <div class="flash"><?php echo $flash['email']; ?></div>
+                    <?php endif; ?>
                     <input class="input" placeholder="<?=$loggedUser->email?>" type="email" name="email" /><br/><br/>
                     <label>Cidade:</label><br/>
                     <?php if(($loggedUser->city) != ""): ?>
@@ -35,8 +35,14 @@
                         <input class="input" placeholder="Onde você trabalha?"  placeholder="<?=$loggedUser->work?> "type="text" name="work" /><br/><br/><hr/><br/>
                     <?php endif; ?>
                     <label>Nova senha:</label><br/>
+                    <?php if(isset($flash['email']) > 0): ?>
+                            <div class="flash"><?php echo $flash['password']; ?></div>
+                    <?php endif; ?>
                     <input class="input" id="password" placeholder="Caso queira alterar sua senha, digite a nova senha." type="password" name="password" /><br/><br/>
                     <label>Confirmar senha:</label><br/>
+                    <?php if(isset($flash['email']) > 0): ?>
+                            <div class="flash"><?php echo $flash['password']; ?></div>
+                    <?php endif; ?>
                     <input class="input" id="password1" placeholder="Repita a senha para confirmar" type="password" name="password_confirmation" /><br/><br/>
                     <input class="button" type="submit" value="Salvar"/>
                 </form>

@@ -470,6 +470,14 @@ form a {
     color:#4a76a8;
 }
 
+.flash {
+    border:2px solid red;
+    background-color:red;
+    color:white;
+    padding: 5px;
+    margin-bottom: 2px;
+}
+
 @media (max-width: 992px) {
     header .head-side-right {
         display:none !important;

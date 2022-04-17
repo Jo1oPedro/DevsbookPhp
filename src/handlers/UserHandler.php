@@ -148,7 +148,10 @@ class UserHandler {
         return $users;
     }
 
-    public static function editUser() {
-        
-    }
+    /*public static function editUser($userId, $inputs) :void {
+        User::update([
+            
+        ])
+        ->where('id')
+    }*/
 }
