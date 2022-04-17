@@ -74,7 +74,7 @@ class UserHandler {
                 $userData = User::select()->where('id', $follower['user_from'])->one();
                 $newUser = new User();
                 $newUser->id = $userData['id'];
-                $newUser->nome = $userData['name'];
+                $newUser->name = $userData['name'];
                 $newUser->avatar = $userData['avatar'];
                 $user->followers[] =  $newUser;
             } 
@@ -84,7 +84,7 @@ class UserHandler {
                 $userData = User::select()->where('id', $following['user_to'])->one();
                 $newUser = new User();
                 $newUser->id = $userData['id'];
-                $newUser->nome = $userData['name'];
+                $newUser->name = $userData['name'];
                 $newUser->avatar = $userData['avatar'];
                 $user->following[] =  $newUser;
             }
@@ -127,5 +127,23 @@ class UserHandler {
             ->where('user_from', $loggedId)
             ->where('user_to', $userId)
         ->execute();
+    }
+
+    public static function searchUser($term) {
+        $users = [];
+        $data = User::select()
+            ->where('name', 'like', '%'.$term.'%')
+        ->get();
+        if(!$data) {
+            return $users;
+        }
+        foreach($data as $user) {
+            $newUser = new User();
+            $newUser->id = $user['id'];
+            $newUser->name = $user['name'];
+            $newUser->avatar = $user['avatar'];
+            $users[] = $newUser;
+        }
+        return $users;
     }
 }
