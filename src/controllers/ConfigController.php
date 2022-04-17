@@ -43,7 +43,6 @@ class ConfigController extends Controller {
             'password' => filter_input(INPUT_POST, 'password'),
             'password_confirmation' => filter_input(INPUT_POST, 'password_confirmation'),
         ];
-        $notEmptyInputs = [];
         foreach($inputs as $key => $input) {
             if($input) {
                 if($key == "email") {
@@ -51,18 +50,19 @@ class ConfigController extends Controller {
                         $_SESSION['flash']['email'] = 'O email digitado já existe';
                     }
                 }
-                if($key == 'password') {
-                    if($inputs['password'] != $input['password_confirmation']) {
+                if($key == "password") {
+                    if($inputs['password'] != $inputs['password_confirmation']) {
                         $_SESSION['flash']['password'] = 'As senhas não conferem';
                     } 
                 }
-                $notEmptyInputs[$key] = $input;
+            } else {
+                if($key != 'password' && $key != 'password_confirmation') {
+                    $inputs[$key] = $loggedUser->{$key};
+                }
             }
         }
-        if(count($notEmptyInputs) > 0) {
-            if(count($_SESSION['flash']) == 0) {
-                UserHandler::editUser($this->loggedUser->id, $notEmptyInputs);
-            }
+        if(count($_SESSION['flash']) == 0) {
+            UserHandler::editUser($this->loggedUser->id, $inputs);
         }
         $this->redirect('/config');
     }

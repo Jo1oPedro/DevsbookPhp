@@ -35,12 +35,12 @@
                         <input class="input" placeholder="Onde você trabalha?"  placeholder="<?=$loggedUser->work?> "type="text" name="work" /><br/><br/><hr/><br/>
                     <?php endif; ?>
                     <label>Nova senha:</label><br/>
-                    <?php if(isset($flash['email']) > 0): ?>
+                    <?php if(isset($flash['password']) > 0): ?>
                             <div class="flash"><?php echo $flash['password']; ?></div>
                     <?php endif; ?>
                     <input class="input" id="password" placeholder="Caso queira alterar sua senha, digite a nova senha." type="password" name="password" /><br/><br/>
                     <label>Confirmar senha:</label><br/>
-                    <?php if(isset($flash['email']) > 0): ?>
+                    <?php if(isset($flash['password']) > 0): ?>
                             <div class="flash"><?php echo $flash['password']; ?></div>
                     <?php endif; ?>
                     <input class="input" id="password1" placeholder="Repita a senha para confirmar" type="password" name="password_confirmation" /><br/><br/>

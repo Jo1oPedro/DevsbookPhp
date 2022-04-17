@@ -148,10 +148,28 @@ class UserHandler {
         return $users;
     }
 
-    /*public static function editUser($userId, $inputs) :void {
-        User::update([
-            
-        ])
-        ->where('id')
-    }*/
+    public static function editUser($userId, $inputs) :void {
+        if($inputs['password']) {
+            User::update([
+                'name' => $inputs['name'],
+                'email' => $inputs['email'],
+                'birthdate' => $inputs['birthdate'],
+                'password' => password_hash($inputs['password'], PASSWORD_DEFAULT),
+                'city' => $inputs['city'],
+                'work' => $inputs['work'],
+            ])
+                ->where('id', $userId)
+            ->execute();
+        } else {
+            User::update([
+                'name' => $inputs['name'],
+                'email' => $inputs['email'],
+                'birthdate' => $inputs['birthdate'],
+                'city' => $inputs['city'],
+                'work' => $inputs['work'],
+            ])
+                ->where('id', $userId)
+            ->execute();
+        }
+    }
 }
