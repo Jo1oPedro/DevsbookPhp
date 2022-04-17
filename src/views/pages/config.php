@@ -19,7 +19,7 @@
                     <label>Nome Completo:</label><br/>
                     <input class="input" placeholder="<?=$loggedUser->name?>" type="text" name="name" /><br/><br/>
                     <label>Data de Nascimento:</label><br/>
-                    <input class="input" id="birthdate" placeholder="<?=date('d/m/Y', strtotime($loggedUser->birthdate));?>" type="date" name="birthdate" /><br/><br/>
+                    <input class="input" id="birthdate" placeholder="<?=date('d/m/Y', strtotime($loggedUser->birthdate));?>" type="text" onfocus="(this.type = 'date')" name="birthdate" /><br/><br/>
                     <label>E-mail:</label><br/>
                     <input class="input" placeholder="<?=$loggedUser->email?>" type="email" name="email" /><br/><br/>
                     <label>Cidade:</label><br/>
