@@ -70,17 +70,36 @@ class PostHandler {
             $newPost->user->avatar = $newUser['avatar'];
 
             $likes = Posts_Like::select()->where('id_post', $postItem['id'])->get();
-            $my_like = Posts_like::select()
-                ->where('id_post', $postItem['id'])
-                ->where('id_user', $loggedUserId)
-            ->one();
             $newPost->likeCount = count($likes);
-            $newPost->liked = ($my_like > 0) ? true : false;
+            $newPost->liked = self::isLiked($postItem['id'], $loggedUserId);
             $newPost->comments = [];
 
             $posts[] = $newPost;
         }
         return $posts;
+    }
+
+    public static function isLiked($idPost, $loggedUserId) {
+        $my_like = Posts_like::select()
+            ->where('id_post', $idPost)
+            ->where('id_user', $loggedUserId)
+        ->one();
+        return ($my_like > 0) ? true : false;
+    }
+
+    public static function deleteLike($idPost, $loggedUserId) {
+        Posts_like::delete()
+            ->where('id_post', $idPost)
+            ->where('id_user', $loggedUserId)
+        ->execute();
+    }   
+
+    public static function addLike($idPost, $loggedUserId) {
+        Posts_like::insert([
+            'id_post' => $idPost,
+            'id_user' => $loggedUserId,
+            'created_at' => date('Y-m-d H:i:s')
+        ])->execute();
     }
 
     public static function getUserFeed($idUser, $page, $loggedUserId) {

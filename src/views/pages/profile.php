@@ -119,5 +119,4 @@
 
     </section>
 </section>
-
 <?=$render('footer');?>
