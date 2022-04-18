@@ -7,8 +7,14 @@
                 <h1>Configurações</h1><br/><br/>
                 <form class="" method="POST" enctype="multipart/form-data" action="<?=$base;?>/config">
                     <label>Novo Avatar</label>
+                    <?php if(isset($flash['avatar']) > 0): ?>
+                            <div class="flash"><?php echo $flash['avatar']; ?></div>
+                    <?php endif; ?>
                     <input type="file" name="avatar" /><br/>
                     <label>Nova Capa</label>
+                    <?php if(isset($flash['cover']) > 0): ?>
+                            <div class="flash"><?php echo $flash['cover']; ?></div>
+                    <?php endif; ?>
                     <input type="file" name="cover" /><br/><hr/>
                     <br/>
                     <input placeholder="<?=$loggedUser->id?>" type="hidden" name="id" />
