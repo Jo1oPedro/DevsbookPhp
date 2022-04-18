@@ -5,11 +5,11 @@
         <div class="row">
             <div class="column pr-5">
                 <h1>Configurações</h1><br/><br/>
-                <label>Novo Avatar</label>
-                <input type="file" name="avatar" /><br/>
-                <label>Nova Capa</label>
-                <input type="file" name="cover" /><br/><hr/>
-                <form class="" method="POST" action="<?=$base;?>/config">
+                <form class="" method="POST" enctype="multipart/form-data" action="<?=$base;?>/config">
+                    <label>Novo Avatar</label>
+                    <input type="file" name="avatar" /><br/>
+                    <label>Nova Capa</label>
+                    <input type="file" name="cover" /><br/><hr/>
                     <br/>
                     <input placeholder="<?=$loggedUser->id?>" type="hidden" name="id" />
                     <br/>

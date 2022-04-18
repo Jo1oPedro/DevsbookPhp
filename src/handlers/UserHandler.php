@@ -157,6 +157,8 @@ class UserHandler {
                 'password' => password_hash($inputs['password'], PASSWORD_DEFAULT),
                 'city' => $inputs['city'],
                 'work' => $inputs['work'],
+                'avatar' => $inputs['avatar'],
+                'cover' => $inputs['cover'],
             ])
                 ->where('id', $userId)
             ->execute();
@@ -167,6 +169,8 @@ class UserHandler {
                 'birthdate' => $inputs['birthdate'],
                 'city' => $inputs['city'],
                 'work' => $inputs['work'],
+                'avatar' => $inputs['avatar'],
+                'cover' => $inputs['cover'],
             ])
                 ->where('id', $userId)
             ->execute();

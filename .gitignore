@@ -1,3 +1,5 @@
 composer.phar
 /vendor/
 .DS_Store
+/public/media/avatars
+/public/media/covers
