@@ -4,6 +4,7 @@ namespace src\handlers;
 use \src\models\Post;
 use \src\models\User;
 use \src\models\User_relation;
+use \src\models\Posts_like;
 
 class PostHandler {
     
@@ -68,8 +69,13 @@ class PostHandler {
             $newPost->user->name = $newUser['name'];
             $newPost->user->avatar = $newUser['avatar'];
 
-            $newPost->likeCount = 0;
-            $newPost->liked = false;
+            $likes = Posts_Like::select()->where('id_post', $postItem['id'])->get();
+            $my_like = Posts_like::select()
+                ->where('id_post', $postItem['id'])
+                ->where('id_user', $loggedUserId)
+            ->one();
+            $newPost->likeCount = count($likes);
+            $newPost->liked = ($my_like > 0) ? true : false;
             $newPost->comments = [];
 
             $posts[] = $newPost;
