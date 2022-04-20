@@ -108,6 +108,15 @@ class PostHandler {
         ])->execute();
     }
 
+    public static function addComment($id_post, $body, $id_user) {
+        Post_comment::insert([
+            'body' => $body,
+            'id_post' => $id_post,
+            'id_user' => $id_user,
+            'created_at' => date('Y-m-d H:i:s'),
+        ])->execute();
+    }
+
     public static function getUserFeed($idUser, $page, $loggedUserId) {
         $perPage = 2;
         $postList = Post::select()

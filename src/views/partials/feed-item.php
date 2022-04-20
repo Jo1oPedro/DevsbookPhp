@@ -35,18 +35,20 @@
             <div class="msg-btn"><?=count($data->comments);?></div>
         </div>
         <div class="feed-item-comments">
-            <!--<?php print_r($data->comments[0]['user'][0]);?>-->
-            <?php foreach($data->comments as $userComment): ?>
-                <div class="fic-item row m-height-10 m-width-20">
-                    <div class="fic-item-photo">
-                    <a href="<?=$base;?>/perfil/<?=$userComment['user']['id'];?>"><img src="<?=$base;?>/media/avatars/<?=$userComment['user']['avatar'];?>" /></a>
+            
+            <div class="feed-item-comments-area">
+                <?php foreach($data->comments as $userComment): ?>
+                    <div class="fic-item row m-height-10 m-width-20">
+                        <div class="fic-item-photo">
+                        <a href="<?=$base;?>/perfil/<?=$userComment['user']['id'];?>"><img src="<?=$base;?>/media/avatars/<?=$userComment['user']['avatar'];?>" /></a>
+                        </div>
+                        <div class="fic-item-info">
+                            <a href="<?=$base;?>/perfil/<?=$userComment['user']['id'];?>"><?=$userComment['user']['name'];?></a>
+                            <?=$userComment['body'];?>
+                        </div>
                     </div>
-                    <div class="fic-item-info">
-                        <a href="<?=$base;?>/perfil/<?=$userComment['user']['id'];?>"><?=$userComment['user']['name'];?></a>
-                        <?=$userComment['body'];?>
-                    </div>
-                </div>
-            <?php endforeach;?>
+                <?php endforeach;?>
+            </div>
 
             <div class="fic-item row m-height-10 m-width-20">
                 <div class="fic-item-photo">

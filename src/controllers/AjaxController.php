@@ -27,4 +27,21 @@ class AjaxController extends Controller {
         }
     }
 
+    public function comment() {
+        $array = ['error' => ''];
+        $id_post = filter_input(INPUT_POST, 'id_post');
+        $body = filter_input(INPUT_POST, 'body');
+        if($id_post  &&  $body) {
+            PostHandler::addComment($id_post, $body, $this->loggedUser->id);
+        
+            $array['link'] = '/perfil/'.$this->loggedUser->id;
+            $array['avatar'] = '/media/avatars/'.$this->loggedUser->avatar;
+            $array['name'] = $this->loggedUser->name;
+            $array['body'] = $body;
+        }
+        header("Content-type: application/json");
+        echo json_encode($array);
+        exit;
+    }
+
 }
