@@ -3,3 +3,4 @@ composer.phar
 .DS_Store
 /public/media/avatars
 /public/media/covers
+/public/media/uploads

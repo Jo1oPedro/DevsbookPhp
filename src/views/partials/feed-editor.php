@@ -28,7 +28,7 @@ let feedSubmit = document.querySelector('.feed-new-send');
 let feedForm = document.querySelector('.feed-new-form');
 let feedFile = document.querySelector('.feed-new-file');
 
-feedFile.addEventListener('click', async function() {
+feedFile.addEventListener('change', async function() {
     let photo = feedFile.files[0];
     
     let formData = new FormData();
