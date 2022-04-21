@@ -22,6 +22,28 @@ class PostHandler {
         }
     }
 
+    public static function deletePost($loggedUserId, $id_post) :void {
+        $post = Post::select()
+                ->where('id', $id_post)
+                ->where('id_user', $loggedUserId)
+                ->one();
+        if($post) {
+            Posts_Like::delete() 
+                    ->where('id_post', $id_post)
+                    ->execute();
+            Post_comment::delete()
+                    ->where('id_post', $id_post)
+                    ->execute();
+            if($post['type'] == 'photo') {
+                $img = __DIR__.'/../../public/media/uploads/'.$post['body'];
+                if(file_exists($img)) {
+                    unlink($img);
+                }
+            }
+            Post::delete()->where('id', $id_post)->execute();
+        }
+    }
+
     public static function getHomeFeed($idUser, $page) {
         $perPage = 2;
         $usersList = User_relation::select()->where('user_from', $idUser)->get();
