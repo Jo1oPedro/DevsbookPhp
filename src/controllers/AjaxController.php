@@ -50,8 +50,8 @@ class AjaxController extends Controller {
             $array['error'] = 'Nenhuma imagem enviada';
         } else {
             $photo = $_FILES['photo'];
-            $maxWidth = 800;
-            $maxHeight = 800;
+            $maxWidth = 400;
+            $maxHeight = 400;
 
             if(in_array($photo['type'], ['image/png', 'image/jpg', 'image/jpeg'])) {
                 
@@ -92,6 +92,8 @@ class AjaxController extends Controller {
                     'photo',
                     $photoName
                 );
+            } else {
+                $array['error'] = 'A imagem não está de acordo com o formato aceito';
             }
         }
 

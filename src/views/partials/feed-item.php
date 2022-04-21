@@ -28,7 +28,11 @@
             <?php endif; ?>
         </div>
         <div class="feed-item-body mt-10 m-width-20">
-            <?=nl2br($data->body);?>
+            <?php if($data->type == 'text'): ?>
+                <?=nl2br($data->body);?>
+            <?php else: ?>
+                <img src="<?=$base;?>/media/uploads/<?=$data->body;?>">
+            <?php endif; ?>
         </div>
         <div class="feed-item-buttons row mt-20 m-width-20">
             <div class="like-btn <?=($data->liked ? 'on' : '');?>"><?=$data->likeCount;?></div>
